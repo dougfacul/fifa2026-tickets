@@ -23,6 +23,35 @@ export interface StandingRow {
   points: number;
 }
 
+export interface BracketSlot {
+  team_id?: number;
+  team_code?: string;
+  team_name?: string;
+  team_flag?: string;
+  label: string;
+}
+
+export interface BracketMatch {
+  match_id: number;
+  match_number: number;
+  slot1: BracketSlot;
+  slot2: BracketSlot;
+  score1: number | null;
+  score2: number | null;
+  status: string;
+}
+
+export interface BracketResponse {
+  bracket: {
+    round_of_32: BracketMatch[];
+    round_of_16: BracketMatch[];
+    quarter_final: BracketMatch[];
+    semi_final: BracketMatch[];
+    third_place: BracketMatch | null;
+    final: BracketMatch | null;
+  };
+}
+
 class ApiClient {
   private baseUrl: string;
   private token: string | null = null;
@@ -161,6 +190,11 @@ class ApiClient {
   // Standings (tabela da Copa)
   async getStandings() {
     return this.request<{ standings: Record<string, StandingRow[]> }>('/standings');
+  }
+
+  // Bracket (mata-mata)
+  async getBracket() {
+    return this.request<BracketResponse>('/bracket');
   }
 
   // Tickets
