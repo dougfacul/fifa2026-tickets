@@ -4,9 +4,9 @@
 > **Target event:** TFTEC "Copa do Mundo Azure"
 > **Estimated total duration:** ~3h (workshop time)
 >
-> ✅ **ACTIVATED 2026-05-15:** pré-requisito atendido — EPIC-000 done + Story 0.10 (consolidação lote 05-08) fechada com QA gate 9/10 PASS.
+> ✅ **ACTIVATED 2026-05-15:** pré-requisito atendido — EPIC-000 done + Story 0.10 (consolidação lote 05-08) fechada com QA gate 10/10 PASS.
 >
-> 🔴 **BLOCKER conhecido na ativação:** `FIFA2026Tickets.bacpac` (12 KB, 2026-05-07) está **desatualizado** — toda a evolução de dados de 2026-05-08 (104 jogos, mojibake, preços FIFA, seed 100k vendas/10k users) foi aplicada via migrations SQL incrementais contra o Azure SQL live, **não dobrada de volta no bacpac**. Stories 1.1 e 1.4 dependem do bacpac e produziriam um DB divergente do app live. **Resolver antes do dry-run** — decisão @data-engineer: (a) regenerar bacpac do Azure SQL atual, ou (b) stories aplicam migrations pós-import. Ver risco abaixo.
+> 📌 **Pré-dry-run (owner-owned, FORA do escopo do agente — decisão owner 2026-05-15):** o `FIFA2026Tickets.bacpac` (12 KB, 2026-05-07) está desatualizado vs o app live (104 jogos, preços FIFA, seed 100k — aplicados via migrations SQL em 2026-05-08, não no bacpac). **O owner regenera o bacpac manualmente no final**, à mão; não é ação de agente, não é blocker para o trabalho documental. As stories 1.x já estão ajustadas (contagens corrigidas via @po audit). Verificação do login `admin@fifa2026.com` (D2) também é owner-owned (precisa acesso ao DB). Runbook de regeneração disponível em [docs/qa/2026-05-15-po-validation-EPIC-001.md](../qa/2026-05-15-po-validation-EPIC-001.md).
 
 ---
 
